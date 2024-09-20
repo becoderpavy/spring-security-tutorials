@@ -1,6 +1,7 @@
 package com.becoder.service;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,6 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.becoder.dto.UserRequest;
+import com.becoder.model.UserDtls;
+import com.becoder.repository.UserRepository;
 
 import io.jsonwebtoken.security.InvalidKeyException;
 
@@ -20,6 +23,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private JwtService jwtService;
+
+	@Autowired
+	private UserRepository userRepository;
 
 	@Override
 	public String login(UserRequest request) {
@@ -34,6 +40,12 @@ public class UserServiceImpl implements UserService {
 		}
 
 		return null;
+	}
+
+	@Override
+	public List<UserDtls> getUserDtls() {
+		return userRepository.findAll();
+
 	}
 
 }
